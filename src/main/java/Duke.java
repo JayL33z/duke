@@ -1,7 +1,10 @@
 import java.util.Scanner;
+import java.lang.String;
 
 public class Duke {
     public static void main(String[] args) {
+        String[] list = new String[100];
+        int index =0;
         Scanner scanner = new Scanner(System.in);
 
         String logo = " ____        _        \n"
@@ -20,15 +23,30 @@ public class Duke {
 
 
         while (true) {
-            input = scanner.next();
+            input = scanner.nextLine();
 
-            if(!input.equals("bye")){
-                System.out.println("\t____________________________________________________________\n"
-                        +"\t "+input +"\n"
-                        +"\t____________________________________________________________\n");
+
+
+            if(input.equals("bye")){
+                break;
+            }
+            else if(input.equals("list")){
+
+                System.out.println("\t____________________________________________________________\n");
+
+                for(int i = 0; i < index; i ++){
+                    System.out.println("\t " + (i+1) + ". "+ list[i] + "\n");
+                }
+
+                System.out.println("\t____________________________________________________________\n");
             }
             else{
-                break;
+                System.out.println("\t____________________________________________________________\n"
+                        +"\t added: "+input +"\n"
+                        +"\t____________________________________________________________\n");
+
+                list[index] = input;
+                index +=1 ;
             }
         }
         System.out.println("\t____________________________________________________________\n"
