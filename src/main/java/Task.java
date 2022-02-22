@@ -1,6 +1,6 @@
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    protected String description; //protected can be accessed by child classes
+    protected boolean isDone;  //protected can be accessed by child classes
 
     public Task(String description) {
         this.description = description;
@@ -15,7 +15,7 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     } // mark done task with X
-
+    
     public String getDescription() {
         return description;
     } // return description
