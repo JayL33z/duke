@@ -1,7 +1,9 @@
 import java.util.Scanner;
 import java.lang.String;
+import java.lang.Exception;
 
 public class Duke {
+
     public static void main(String[] args) {
         Task[] list = new Task[100];
         int index =0;
@@ -23,12 +25,14 @@ public class Duke {
 
         while (true) {
             input = scanner.nextLine();
+            String in[] = input.split(" ", 2);
+            String option = in[0]; //get option
 
-            if(input.equals("bye")){
+            if(option.equals("bye")){
                 break;
             }
 
-            else if(input.equals("list")){ //output the list of tasks
+            else if(option.equals("list")){ //output the list of tasks
 
                 System.out.print("\t____________________________________________________________\n"
                     + "\t Here are the tasks in your list:\n");
@@ -40,72 +44,106 @@ public class Duke {
                 System.out.print("\t____________________________________________________________\n");
             }
 
-            else if(input.substring(0, 4).equals("mark")){ //mark a task as done
+            else if(option.equals("mark")){ //mark a task as done
 
-                int taskToUpdate = Integer.parseInt(input.substring(5)); //get the task number to update
-                list[taskToUpdate - 1].markDone(); //mark the task as done
+                try {
+                    int taskToUpdate = Integer.parseInt(in[1]); //get the task number to update
+                    list[taskToUpdate - 1].markDone(); //mark the task as done
 
-                System.out.println("\t____________________________________________________________\n"
-                        + "\t Nice! I've marked this task as done: \n"
-                        + "\t "+ list[taskToUpdate - 1].getDescription() +"\n"
-                        + "\t____________________________________________________________\n");
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t Nice! I've marked this task as done: \n"
+                            + "\t " + list[taskToUpdate - 1].getDescription() + "\n"
+                            + "\t____________________________________________________________\n");
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t OOPS!!! The description of a mark cannot be empty.\n"
+                            + "\t____________________________________________________________\n");
+                    
+                }
+            }
+
+            else if(option.equals("unmark")){ //unmark
+                try {
+                    int taskToUpdate = Integer.parseInt(in[1]); //get the task number to update
+                    list[taskToUpdate - 1].unmarkDone();
+
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t OK, I've marked this task as not done yet: \n"
+                            + "\t "+ list[taskToUpdate - 1].getDescription() +"\n"
+                            + "\t____________________________________________________________\n");
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t OOPS!!! The description of a unmark cannot be empty.\n"
+                            + "\t____________________________________________________________\n");
+
+                }
                 
             }
 
-            else if(input.substring(0, 6).equals("unmark")){ //unmark
-
-                int taskToUpdate = Integer.parseInt(input.substring(7)); //get the task number to update
-                list[taskToUpdate - 1].unmarkDone();
-
-                System.out.println("\t____________________________________________________________\n"
-                        + "\t OK, I've marked this task as not done yet: \n"
-                        + "\t "+ list[taskToUpdate - 1].getDescription() +"\n"
-                        + "\t____________________________________________________________\n");
-
-            }
-
-            else if(input.substring(0, 4).equals("todo")){ //handle todo
+            else if(option.equals("todo")){ //handle todo
                 
-                list[index] = new Todo(input.substring(5)); //creates new todo
+                try {
+                    list[index] = new Todo(in[1]); //creates new todo
 
-                System.out.println("\t____________________________________________________________\n"
-                        + "\t Got it. I've added this task: \n"
-                        + "\t  " + list[index].getDescription() +"\n"
-                        + "\t Now you have " + (index + 1) + " tasks in the list.\n"
-                        +"\t____________________________________________________________\n");
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t Got it. I've added this task: \n"
+                            + "\t  " + list[index].getDescription() + "\n"
+                            + "\t Now you have " + (index + 1) + " tasks in the list.\n"
+                            + "\t____________________________________________________________\n");
 
-                index +=1 ; //increase index after printing info
+                    index += 1; //increase index after printing info
+
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t OOPS!!! The description of a todo cannot be empty.\n"
+                            + "\t____________________________________________________________\n");
+                }
+            }
+
+            else if(option.equals("deadline")){ //handle deadline
+
+                try {
+                    String arr[] = in[1].split("/by", 2); //to get description and by
+
+                    list[index] = new Deadline(arr[0], arr[1]); //creates new Deadline
+
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t Got it. I've added this task: \n"
+                            + "\t  " + list[index].getDescription() + "\n"
+                            + "\t Now you have " + (index + 1) + " tasks in the list.\n"
+                            + "\t____________________________________________________________\n");
+
+                    index += 1; //increase index after printing info
+
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t OOPS!!! The description of a deadline cannot be empty.\n"
+                            + "\t____________________________________________________________\n");
+                }
 
             }
 
-            else if(input.substring(0, 8).equals("deadline")){ //handle deadline
+            else if(option.equals("event")){ //handle Event
 
-                String arr[] = input.substring(9).split("/by", 2); //to get description and by
+                try {
+                    String arr[] = in[1].split("/at", 2); //to get description and at
 
-                list[index] = new Deadline(arr[0], arr[1]); //creates new Deadline
+                    list[index] = new Event(arr[0], arr[1]); //creates new Event
 
-                System.out.println("\t____________________________________________________________\n"
-                        + "\t Got it. I've added this task: \n"
-                        + "\t  " + list[index].getDescription() +"\n"
-                        + "\t Now you have " + (index + 1) + " tasks in the list.\n"
-                        + "\t____________________________________________________________\n");
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t Got it. I've added this task: \n"
+                            + "\t  " + list[index].getDescription() + "\n"
+                            + "\t Now you have " + (index + 1) + " tasks in the list.\n"
+                            + "\t____________________________________________________________\n");
 
-                index +=1 ; //increase index after printing info
-            }
-
-            else if(input.substring(0, 5).equals("event")){ //handle Event
-
-                String arr[] = input.substring(6).split("/at", 2); //to get description and at
-
-                list[index] = new Event(arr[0], arr[1]); //creates new Event
-
-                System.out.println("\t____________________________________________________________\n"
-                        + "\t Got it. I've added this task: \n"
-                        + "\t  " + list[index].getDescription() +"\n"
-                        + "\t Now you have " + (index + 1) + " tasks in the list.\n"
-                        + "\t____________________________________________________________\n");
-
-                index +=1 ; //increase index after printing info
+                    index += 1; //increase index after printing info
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("\t____________________________________________________________\n"
+                            + "\t OOPS!!! The description of an event cannot be empty.\n"
+                            + "\t____________________________________________________________\n");
+                }
             }
 
 
