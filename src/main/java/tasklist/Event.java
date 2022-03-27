@@ -1,3 +1,5 @@
+package tasklist;
+
 public class Event extends Task {
     protected String at;
 
@@ -9,14 +11,9 @@ public class Event extends Task {
 
     @Override
     public String getDescription() {
-        return "[E]" +"["+ super.getStatusIcon() +"] "+ super.getDescription() + " (at: " + at + ")";
-    }
-
-    @Override
-    public String getDescriptionLite() {
         return super.getDescription();
     }
-
+    
     @Override
     public String getDateTime() { return this.at; }
 

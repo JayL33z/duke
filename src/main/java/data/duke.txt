@@ -1,9 +1,0 @@
-T | 0 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2-4pm
-T | 0 | prepare project materials
-D | 0 | finish presentation slide | August 10th
-E | 0 | book review | August 15th 3-5pm 
-T | 0 | buy toys
-D | 0 | return toys | Sept 3rd
-E | 1 | counter-terrorist conference | Oct 5th 4-6am

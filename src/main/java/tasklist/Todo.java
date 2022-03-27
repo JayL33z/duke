@@ -1,3 +1,5 @@
+package tasklist;
+
 public class Todo extends Task {
     
     public Todo(String description) {
@@ -9,9 +11,7 @@ public class Todo extends Task {
 
     @Override
     public String getDescription() {
-        return "[T]" +"["+ super.getStatusIcon() +"] "+ super.getDescription();
+        return super.getDescription();
     }
-
-    @Override
-    public String getDescriptionLite() { return super.getDescription();}
+    
 }
