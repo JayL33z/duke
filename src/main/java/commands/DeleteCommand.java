@@ -18,8 +18,7 @@ public class DeleteCommand extends Command{
     }
 
     //instantiate a command object with parameters from Parser.parse() e.g. mark, unmark, todo, deadline, event, delete
-    public DeleteCommand (CommandType type, String parameters)
-    {
+    public DeleteCommand (CommandType type, String parameters) {
         super(type, parameters);
     }
 

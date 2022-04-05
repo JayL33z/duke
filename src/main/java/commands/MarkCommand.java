@@ -17,8 +17,7 @@ public class MarkCommand extends Command{
     }
 
     //instantiate a command object with parameters from Parser.parse() e.g. mark, unmark, todo, deadline, event, delete
-    public MarkCommand (CommandType type, String parameters)
-    {
+    public MarkCommand (CommandType type, String parameters) {
         super(type, parameters);
     }
     

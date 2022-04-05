@@ -14,8 +14,7 @@ public class UnknownCommand extends Command{
     }
 
     //instantiate a command object with parameters from Parser.parse() e.g. mark, unmark, todo, deadline, event, delete
-    public UnknownCommand (CommandType type, String parameters)
-    {
+    public UnknownCommand (CommandType type, String parameters) {
         super(type, parameters);
     }
 

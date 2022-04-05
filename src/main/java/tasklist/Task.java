@@ -32,5 +32,15 @@ public abstract class Task {
         return description;
     } // return description
 
-    public String getDateTime() {return ""; } //return date/time only applicable for Deadline and Event
+    public String getDateTimeString() {
+        return "";
+    } //return date/time as a String only applicable for Deadline and Event for in format for printing
+
+    public String getDateTimeStore() {
+        return "";
+    } // //return date/time as a String only applicable for Deadline and Event in format for storing
+    
+    public String getFixedDuration() {
+        return "";
+    } // //return date/time as a String only applicable for FixedTask
 }

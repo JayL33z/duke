@@ -8,6 +8,8 @@ import exception.*;
 
 import java.lang.ArrayIndexOutOfBoundsException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class AddCommand extends Command{
@@ -18,8 +20,7 @@ public class AddCommand extends Command{
     }
 
     //instantiate a command object with parameters from Parser.parse() e.g. mark, unmark, todo, deadline, event, delete
-    public AddCommand (CommandType type, String parameters)
-    {
+    public AddCommand (CommandType type, String parameters) {
         super(type, parameters);
     }
 
@@ -43,7 +44,7 @@ public class AddCommand extends Command{
                     ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize());
 
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\t OOPS!!! The description of a todo cannot be empty.\n");
+                    throw new DukeException("\t OOPS! Please input in the format:  todo [description]\n");
                 }
                 break;
 
@@ -55,13 +56,13 @@ public class AddCommand extends Command{
                     arr[0] = arr[0].trim();
                     arr[1] = arr[1].trim();
 
-                    tasks.addTask(new Deadline(arr[0], arr[1])); //creates new Deadline
+                    tasks.addTask(new Deadline(arr[0], LocalDate.parse(arr[1]))); //creates new Deadline
 
                     //prints output to show user that the task has been added
                     ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize());
 
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\t OOPS!!! The description of a deadline cannot be empty.\n");
+                    throw new DukeException("\t OOPS! Please input in the format:  deadline [description] /by [YYYY-MM-DD]\n");
                 }
                 break;
 
@@ -73,13 +74,31 @@ public class AddCommand extends Command{
                     arr[0] = arr[0].trim();
                     arr[1] = arr[1].trim();
 
-                    tasks.addTask(new Event(arr[0], arr[1])); //creates new Event
+                    tasks.addTask(new Event(arr[0], LocalDateTime.parse(arr[1]))); //creates new Event
 
                     //prints output to show user that the task has been added
                     ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize());
 
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\t OOPS!!! The description of an event cannot be empty.\n");
+                    throw new DukeException("\t OOPS! Please input in the format:  event [description] /at [YYYY-MM-DDTHH:MM]\n");
+                }
+                break;
+
+            case FIXED:
+                try {
+                    String arr[] = this.parameters.split("/for", 2); //to get description and by
+
+                    //remove leading and trailing spaces in description and for
+                    arr[0] = arr[0].trim();
+                    arr[1] = arr[1].trim();
+
+                    tasks.addTask(new FixedTask(arr[0], arr[1])); //creates new FixedTask
+
+                    //prints output to show user that the task has been added
+                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize());
+
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("\t OOPS! Please input in the format:  fixed [description] /for [duration]\n");
                 }
                 break;
 

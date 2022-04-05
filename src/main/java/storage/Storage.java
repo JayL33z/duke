@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Storage {
 
@@ -51,7 +53,7 @@ public class Storage {
                         list.get(list.size() - 1).unmarkDone(); //unmark the task
                     }
                 } else if (option.equals("D")) { //handle deadline
-                    list.add(new Deadline(in[2], in[3])); //creates new Deadline where in[3] is the date/time
+                    list.add(new Deadline(in[2], LocalDate.parse(in[3]))); //creates new Deadline where in[3] is the date
 
                     if (done.equals("1")) {
                         list.get(list.size() - 1).markDone(); //mark the task
@@ -59,11 +61,25 @@ public class Storage {
                         list.get(list.size() - 1).unmarkDone(); //unmark the task
                     }
                 } else if (option.equals("E")) { //handle event
-                    list.add(new Event(in[2], in[3])); //creates new Event where in[3] is the date/time
+                    list.add(new Event(in[2], LocalDateTime.parse(in[3]))); //creates new Event where in[3] is the date/time
 
-                    if (done.equals("1")) list.get(list.size() - 1).markDone(); //mark the task
-                    else if (done.equals("0")) list.get(list.size() - 1).unmarkDone(); //unmark the task
-                }
+                    if (done.equals("1")) {
+                        list.get(list.size() - 1).markDone();
+                    }//mark the task
+                    else if (done.equals("0")){
+                        list.get(list.size() - 1).unmarkDone(); //unmark the task
+                    }
+                } else if (option.equals("F")) { //handle event
+                    list.add(new FixedTask(in[2], in[3])); //creates new FixedTask where in[3] is the duration
+                    
+                    if (done.equals("1")) {
+                        list.get(list.size() - 1).markDone();
+                    }//mark the task
+                    else if (done.equals("0")){
+                        list.get(list.size() - 1).unmarkDone(); //unmark the task
+                    }
+                } //end of loop
+
             }
         } //end of try clause
         catch (FileNotFoundException e){
@@ -86,6 +102,7 @@ public class Storage {
                 String task = list.getList().get(i).getIdentity(); // get whether it is a Todo, Deadline or Event
                 String done = "0"; // get whether task is complete done (1 means mark and 0 unmark as done) from list
                 String dateTime;
+                String duration;
 
                 // if task is done
                 if (list.getList().get(i).getStatusIcon().equals("X")) {
@@ -96,11 +113,14 @@ public class Storage {
                 if (task.equals("T")) {
                     fw.write("T | " + done + " | " + list.getList().get(i).getDescription());
                 } else if (task.equals("D")) {
-                    dateTime = list.getList().get(i).getDateTime();
+                    dateTime = list.getList().get(i).getDateTimeStore();
                     fw.write("D | " + done + " | " + list.getList().get(i).getDescription() + " | " + dateTime);
                 } else if (task.equals("E")) {
-                    dateTime = list.getList().get(i).getDateTime();
+                    dateTime = list.getList().get(i).getDateTimeStore();
                     fw.write("E | " + done + " | " + list.getList().get(i).getDescription() + " | " + dateTime);
+                } else if (task.equals("F")) {
+                    duration = list.getList().get(i).getFixedDuration();
+                    fw.write("F | " + done + " | " + list.getList().get(i).getDescription() + " | " + duration);
                 }
                 fw.write("\n"); //next line
 

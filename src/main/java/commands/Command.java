@@ -12,14 +12,12 @@ public abstract class Command {
     protected boolean exit = false; //only when it is bye
 
     //instantiate a command object without parameters from Parser.parse() e.g. bye, list
-    public Command (CommandType type)
-    {
+    public Command (CommandType type) {
         this.type = type;
     }
 
     //instantiate a command object with parameters from Parser.parse() e.g. mark, unmark, todo, deadline, event, delete
-    public Command (CommandType type, String parameters)
-    {
+    public Command (CommandType type, String parameters) {
         this.type = type;
         this.parameters = parameters;
     }

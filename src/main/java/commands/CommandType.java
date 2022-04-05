@@ -9,5 +9,8 @@ public enum CommandType {
     MARK,
     UNMARK,
     BYE,
+    FIXED,
+    FIND,
+    VIEW,
     UNKNOWN
 }

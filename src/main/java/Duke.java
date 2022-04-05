@@ -11,6 +11,8 @@ import commands.UnmarkCommand;
 import commands.MarkCommand;
 import commands.UnknownCommand;
 import commands.ByeCommand;
+import commands.ViewCommand;
+import commands.FindCommand;
 
 
 import tasklist.Task;

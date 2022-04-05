@@ -25,6 +25,14 @@ public class Parser {
         else if(option.equals("list")){ //output the list of tasks
             command = new ListCommand(CommandType.LIST);
         }
+        
+       else if(option.equals("view")){ //output the list of tasks
+           try {
+               command = new ViewCommand(CommandType.VIEW, in[1]);
+           }catch (ArrayIndexOutOfBoundsException e){
+               throw new DukeException("OOPS!!! You need to provide an date to see schedule.");
+           }
+       }
 
         else if(option.equals("mark")){ //mark a task as done
             try{
@@ -55,6 +63,12 @@ public class Parser {
         else if(option.equals("event")){ //handle Event via AddCommand.java
             command = new AddCommand(CommandType.EVENT, in[1]);
         }
+       else if(option.equals("fixed")){ //handle Event via AddCommand.java
+           command = new AddCommand(CommandType.FIXED, in[1]);
+       }
+       else if(option.equals("find")){ //handle Event via AddCommand.java
+           command = new FindCommand(CommandType.FIND, in[1]);
+       }
         else if(option.equals("delete")){ //handle delete
            try {
                command = new DeleteCommand(CommandType.DELETE, in[1]);

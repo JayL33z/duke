@@ -6,22 +6,24 @@ import tasklist.*;
 import parser.*;
 import exception.*;
 
-public class ListCommand extends Command{
-    
+public class FindCommand extends Command{
     //instantiate a command object without parameters from Parser.parse() e.g. bye, list
-    public ListCommand (CommandType type) {
+    public FindCommand (CommandType type) {
         super(type);
     }
 
     //instantiate a command object with parameters from Parser.parse() e.g. mark, unmark, todo, deadline, event, delete
-    public ListCommand (CommandType type, String parameters) {
+    public FindCommand (CommandType type, String parameters) {
         super(type, parameters);
     }
 
-    //executes the command accordingly from Duke.java (this adds an item to the list then updates the list)
+    //executes the command accordingly from Duke.java
     @Override
     public void execute (TaskList tasks, Ui ui, Storage storage){
-        ui.showList(tasks);
+        //remove leading and trailing spaces
+        this.parameters = this.parameters.trim();
+        //prints output to show user the tasks for a match in description
+        ui.showFind(tasks, this.parameters);
     } //end of execute method
 
 }
