@@ -17,7 +17,12 @@ public class FindCommand extends Command{
         super(type, parameters);
     }
 
-    //executes the command accordingly from Duke.java
+    /**
+     * Executes the command
+     * @param TaskList object
+     * @param Ui object
+     * @param Storage object
+     */
     @Override
     public void execute (TaskList tasks, Ui ui, Storage storage){
         //remove leading and trailing spaces

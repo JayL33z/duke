@@ -7,6 +7,7 @@ import parser.*;
 import exception.*;
 
 import java.lang.ArrayIndexOutOfBoundsException;
+import java.time.format.DateTimeParseException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,11 +24,13 @@ public class AddCommand extends Command{
     public AddCommand (CommandType type, String parameters) {
         super(type, parameters);
     }
-
-
-
-
-    //executes the command accordingly from Duke.java (this adds an item to the list then updates the list)
+    
+    /**
+     * Executes the command
+     * @param TaskList object
+     * @param Ui object
+     * @param Storage object
+     */
     @Override
     public void execute (TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
@@ -36,69 +39,51 @@ public class AddCommand extends Command{
 
             case TODO: //add todo
                 try {
-                    //remove leading and trailing spaces in description
-                    this.parameters = this.parameters.trim();
+                    this.parameters = this.parameters.trim(); //remove leading and trailing spaces in description
                     tasks.addTask(new Todo(this.parameters)); //creates new todo into the arrayList in TaskList
-
-                    //prints output to show user that the task has been added
-                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize());
-
+                    assert tasks.getSize() != 0 : "The tasklist should not be empty since a task is just added";
+                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize()); //prints output to show user that the task has been added
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\t OOPS! Please input in the format:  todo [description]\n");
+                    throw new DukeException("OOPS! Please input in the format:  todo [description]\n");
                 }
                 break;
 
             case DEADLINE:
                 try {
                     String arr[] = this.parameters.split("/by", 2); //to get description and by
-
-                    //remove leading and trailing spaces in description and by
-                    arr[0] = arr[0].trim();
+                    arr[0] = arr[0].trim(); //remove leading and trailing spaces in description and by
                     arr[1] = arr[1].trim();
-
                     tasks.addTask(new Deadline(arr[0], LocalDate.parse(arr[1]))); //creates new Deadline
-
-                    //prints output to show user that the task has been added
-                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize());
-
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\t OOPS! Please input in the format:  deadline [description] /by [YYYY-MM-DD]\n");
+                    assert tasks.getSize() != 0 : "The tasklist should not be empty since a task is just added";
+                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize()); //prints output to show user that the task has been added
+                } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                    throw new DukeException("OOPS! Please input in the format:  deadline [description] /by [YYYY-MM-DD]");
                 }
                 break;
 
             case EVENT:
                 try {
                     String arr[] = this.parameters.split("/at", 2); //to get description and by
-
-                    //remove leading and trailing spaces in description and at
-                    arr[0] = arr[0].trim();
+                    arr[0] = arr[0].trim(); //remove leading and trailing spaces in description and at
                     arr[1] = arr[1].trim();
-
                     tasks.addTask(new Event(arr[0], LocalDateTime.parse(arr[1]))); //creates new Event
-
-                    //prints output to show user that the task has been added
-                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize());
-
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\t OOPS! Please input in the format:  event [description] /at [YYYY-MM-DDTHH:MM]\n");
+                    assert tasks.getSize() != 0 : "The tasklist should not be empty since a task is just added";
+                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize()); //prints output to show user that the task has been added
+                } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                    throw new DukeException("OOPS! Please input in the format:  event [description] /at [YYYY-MM-DDTHH:MM]");
                 }
                 break;
 
             case FIXED:
                 try {
                     String arr[] = this.parameters.split("/for", 2); //to get description and by
-
-                    //remove leading and trailing spaces in description and for
-                    arr[0] = arr[0].trim();
+                    arr[0] = arr[0].trim();  //remove leading and trailing spaces in description and for
                     arr[1] = arr[1].trim();
-
                     tasks.addTask(new FixedTask(arr[0], arr[1])); //creates new FixedTask
-
-                    //prints output to show user that the task has been added
-                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize());
-
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\t OOPS! Please input in the format:  fixed [description] /for [duration]\n");
+                    assert tasks.getSize() != 0 : "The tasklist should not be empty since a task is just added";
+                    ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize()); //prints output to show user that the task has been added
+                } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                    throw new DukeException("\t OOPS! Please input in the format:  fixed [description] /for [duration]");
                 }
                 break;
 
@@ -112,7 +97,5 @@ public class AddCommand extends Command{
         } catch (DukeException e) {
             throw e;
         }
-
     } //end of execute method
-
 }

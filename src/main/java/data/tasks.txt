@@ -1,4 +1,4 @@
-D | 1 | read book | 2022-03-04
-E | 1 | book event | 2022-03-04T16:04
-T | 0 | book review
-F | 0 | wrap books | 2 hours
+T | 0 | call publisher
+D | 1 | buy book | 2021-12-10
+E | 0 | visit author conference | 2022-08-10T20:45
+F | 0 | library meeting | 2 hours

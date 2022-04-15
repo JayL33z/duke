@@ -16,19 +16,28 @@ public class Ui {
 
     private String userInput;
 
-    //get user input in Duke.java
+    /**
+     * Returns a String
+     * <p>
+     * This method returns a string for the user's input command
+     * @return string of user's input command
+     */
     public String readCommand(){
         Scanner scanner = new Scanner(System.in); //user input scanner
         userInput = scanner.nextLine();
         return userInput;
     }
 
-    //prints divider line
+    /**
+     * Prints a line
+     */
     public void showLine() {
         System.out.print("\t____________________________________________________________\n");
     }
 
-    //prints Welcome message
+    /**
+     * Prints the welcome message
+     */
     public void showWelcome() {
         System.out.println();
         showLine();
@@ -56,7 +65,10 @@ public class Ui {
         System.out.println();
     }
 
-    //prints a line of task in the list
+    /**
+     * Prints a task (formatted) in the tasklist
+     * @param task the task to print
+     */
     public void showTask(Task task) {
 
         System.out.print("[" + task.getIdentity() + "]" +"["+ task.getStatusIcon() +"] " + task.getDescription());
@@ -76,17 +88,26 @@ public class Ui {
 
     }
 
-    //prints loading error from file in Duke.java
+    /**
+     * Prints message indicating that the file is not successfully loaded
+     */
     public void showLoadingError() {
         System.out.print("\t File data/tasks.txt was not successfully loaded.\n");
     }
 
-    //prints other errors from file in Duke.java
+    /**
+     * Prints any error message
+     * @param errorMessage the error message to print
+     */
     public void showError(String errorMessage) {
         System.out.print("\t "+ errorMessage + "\n");
     }
 
-    //prints to show task is added to the list
+    /**
+     * Prints message indicating that the a task is added to the list
+     *  @param task the task added to the list
+     *  @param listSize the size of the list
+     */
     public void showAdded(Task task, int listSize){
         //showLine();
         System.out.print("\t Got it. I've added this task: \n\t ");
@@ -95,7 +116,11 @@ public class Ui {
         //showLine();
     }
 
-    //prints to show task has been deleted from the list
+    /**
+     * Prints message indicating that the a task is deleted from the list
+     * @param task the task deleted from the list
+     * @param listSize the size of the list
+     */
     public void showDeleted(Task task, int listSize){
         //showLine();
         System.out.print("\t Noted. I've removed this task: \n\t ");
@@ -104,7 +129,10 @@ public class Ui {
         //showLine();
     }
 
-    //prints to show task has been marked as done
+    /**
+     * Prints message indicating that the a task in the list has been marked as completed
+     * @param task the task marked as completed
+     */
     public void showMark(Task task){
         //showLine();
         System.out.print("\t Nice! I've marked this task as done: \n\t ");
@@ -112,7 +140,10 @@ public class Ui {
         //showLine();
     }
 
-    //prints to show task has been unmarked
+    /**
+     * Prints message indicating that the a task in the list has been marked as incompleted
+     * @param task the task marked as incompleted
+     */
     public void showUnmark(Task task){
         //showLine();
         System.out.print("\t OK, I've marked this task as not done yet: \n\t ");
@@ -120,7 +151,10 @@ public class Ui {
         //showLine();
     }
 
-    //prints to list of tasks
+    /**
+     * Prints full list of the tasks
+     * @param list the task list to show
+     */
     public void showList(TaskList list){
         //showLine();
 
@@ -139,7 +173,11 @@ public class Ui {
 
     }
 
-    //prints to list of tasks for a specific date
+    /**
+     * Prints list of tasks for a specific date
+     * @param list the task list to search for a date
+     * @param date the date to search
+     */
     public void showView(TaskList list,  LocalDate date) {
 
         LocalDate taskDate = LocalDate.now(); //intitialization only
@@ -176,7 +214,11 @@ public class Ui {
     } //end of showView
 
 
-    //prints to list of tasks for a specific date
+    /**
+     * Prints list of tasks which has a description matching the keyword
+     * @param list the task list to search for a keyword
+     * @param keyword the keyword to search
+     */
     public void showFind(TaskList list,  String keyword) {
         
         boolean emptyList = true; //tracks whether it returns any tasks.
@@ -200,14 +242,18 @@ public class Ui {
     } //end of showView
 
 
-    //prints to show that Duke does not understand the command
+    /**
+     * Prints message to indicate that Duke does not understand the user command
+     */
     public void showUnknown(){
         //showLine();
         System.out.print("\t  OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         //showLine();
     }
 
-    //prints to show that Duke has been closed by the user
+    /**
+     * Prints message to indicate that Duke has been closed by the user
+     */
     public void showBye(){
         //showLine();
         System.out.print("\t Bye. Hope to see you again soon!\n");

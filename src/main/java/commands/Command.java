@@ -22,7 +22,12 @@ public abstract class Command {
         this.parameters = parameters;
     }
 
-    //executes the command accordingly from Duke.java
+    /**
+     * Executes the command
+     * @param TaskList object
+     * @param Ui object
+     * @param Storage object
+     */
     public abstract void execute (TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     //executes the command accordingly from Duke.java

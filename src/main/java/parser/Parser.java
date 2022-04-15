@@ -8,25 +8,30 @@ import exception.*;
 
 import java.lang.String;
 import java.lang.ArrayIndexOutOfBoundsException;
+import java.lang.IndexOutOfBoundsException;
 
 public class Parser {
 
-    //method to parse user input to recognize which command is selected
+    /**
+     * Returns a command object instance from the user's input
+     *  @param String of the full command input by the user
+     * @return the Command object
+     */
     public static Command parse(String fullCommand) throws DukeException {
         
         Command command;
         String in[] = fullCommand.split(" ", 2);
         String option = in[0];
 
-       if(option.equals("bye")){
+       if(option.equalsIgnoreCase("bye")){
             command = new ByeCommand(CommandType.BYE);
         }
 
-        else if(option.equals("list")){ //output the list of tasks
+        else if(option.equalsIgnoreCase("list")){ //output the list of tasks
             command = new ListCommand(CommandType.LIST);
         }
         
-       else if(option.equals("view")){ //output the list of tasks
+       else if(option.equalsIgnoreCase("view")){ //output the list of tasks
            try {
                command = new ViewCommand(CommandType.VIEW, in[1]);
            }catch (ArrayIndexOutOfBoundsException e){
@@ -34,7 +39,7 @@ public class Parser {
            }
        }
 
-        else if(option.equals("mark")){ //mark a task as done
+        else if(option.equalsIgnoreCase("mark")){ //mark a task as done
             try{
                 command = new MarkCommand(CommandType.MARK, in[1]);
                 
@@ -44,7 +49,7 @@ public class Parser {
 
         }
 
-        else if(option.equals("unmark")){ //unmark
+        else if(option.equalsIgnoreCase("unmark")){ //unmark
            try {
                command = new UnmarkCommand(CommandType.UNMARK, in[1]);
            }catch (ArrayIndexOutOfBoundsException e){
@@ -52,24 +57,24 @@ public class Parser {
            }
         }
 
-        else if(option.equals("todo")){ //handle todo via AddCommand.java
+        else if(option.equalsIgnoreCase("todo")){ //handle todo via AddCommand.java
             command = new AddCommand(CommandType.TODO, in[1]);
         }
 
-        else if(option.equals("deadline")){ //handle deadline via AddCommand.java
+        else if(option.equalsIgnoreCase("deadline")){ //handle deadline via AddCommand.java
             command = new AddCommand(CommandType.DEADLINE, in[1]);
         }
 
-        else if(option.equals("event")){ //handle Event via AddCommand.java
+        else if(option.equalsIgnoreCase("event")){ //handle Event via AddCommand.java
             command = new AddCommand(CommandType.EVENT, in[1]);
         }
-       else if(option.equals("fixed")){ //handle Event via AddCommand.java
+       else if(option.equalsIgnoreCase("fixed")){ //handle Event via AddCommand.java
            command = new AddCommand(CommandType.FIXED, in[1]);
        }
-       else if(option.equals("find")){ //handle Event via AddCommand.java
+       else if(option.equalsIgnoreCase("find")){ //handle Event via AddCommand.java
            command = new FindCommand(CommandType.FIND, in[1]);
        }
-        else if(option.equals("delete")){ //handle delete
+        else if(option.equalsIgnoreCase("delete")){ //handle delete
            try {
                command = new DeleteCommand(CommandType.DELETE, in[1]);
            }catch (ArrayIndexOutOfBoundsException e){

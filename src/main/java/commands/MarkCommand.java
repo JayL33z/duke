@@ -20,9 +20,14 @@ public class MarkCommand extends Command{
     public MarkCommand (CommandType type, String parameters) {
         super(type, parameters);
     }
-    
 
-    //executes the command accordingly from Duke.java (this adds an item to the list then updates the list)
+
+    /**
+     * Executes the command
+     * @param TaskList object
+     * @param Ui object
+     * @param Storage object
+     */
     @Override
     public void execute (TaskList tasks, Ui ui, Storage storage)throws DukeException{
 

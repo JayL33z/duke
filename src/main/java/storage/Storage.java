@@ -26,11 +26,18 @@ public class Storage {
             this.filePath = filePath;
     }
 
+    /**
+     * Returns the filepath for this storage
+     * @return the string for filepath
+     */
     public String getfilePath() {
         return filePath;
     }
 
-    //loads from filePath to return an arraylist to instantiate a TaskList object in Duke.java
+    /**
+     * loads from filePath to return an arraylist to instantiate a TaskList object in Duke.java
+     * @return an arraylist of tasks
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> list = new ArrayList<Task>();
         try{
@@ -88,11 +95,12 @@ public class Storage {
         return list;
     } //end of load method
 
-
-    //this method writes the data to the stored file (it rewrites the whole file from the ArrayList)
+    /**
+     * Writes the data to the stored file (it rewrites the whole file from the ArrayList)
+     * @param a task list
+     * @return the string for filepath
+     */
     public void store(TaskList list) throws DukeException {
-
-        
         try {
             FileWriter fw = new FileWriter(this.filePath);
             String output = ""; //output to overwrite the text file

@@ -19,15 +19,18 @@ public class ViewCommand extends Command{
         super(type, parameters);
     }
 
-    //executes the command accordingly from Duke.java
+    /**
+     * Executes the command
+     * @param TaskList object
+     * @param Ui object
+     * @param Storage object
+     */
     @Override
     public void execute (TaskList tasks, Ui ui, Storage storage){
             LocalDate date;
-            //remove leading and trailing spaces
-            this.parameters = this.parameters.trim();
+            this.parameters = this.parameters.trim(); //remove leading and trailing spaces
             date = LocalDate.parse(this.parameters);
-            //prints output to show user the tasks for a specific date
-            ui.showView(tasks, date);
+            ui.showView(tasks, date);  //prints output to show user the tasks for a specific date
     } //end of execute method
 
 }

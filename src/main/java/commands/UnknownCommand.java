@@ -18,7 +18,12 @@ public class UnknownCommand extends Command{
         super(type, parameters);
     }
 
-    //executes the command accordingly from Duke.java (this adds an item to the list then updates the list)
+    /**
+     * Executes the command
+     * @param TaskList object
+     * @param Ui object
+     * @param Storage object
+     */
     public void execute (TaskList tasks, Ui ui, Storage storage){
         ui.showUnknown();
     } //end of execute method

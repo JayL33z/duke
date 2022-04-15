@@ -21,19 +21,24 @@ public class DeleteCommand extends Command{
     public DeleteCommand (CommandType type, String parameters) {
         super(type, parameters);
     }
-
-
-
-
-    //executes the command accordingly from Duke.java (this adds an item to the list then updates the list)
+    
+    /**
+     * Executes the command
+     * @param TaskList object
+     * @param Ui object
+     * @param Storage object
+     */
     @Override
     public void execute (TaskList tasks, Ui ui, Storage storage) throws DukeException{
-
-            int taskToDelete = Integer.parseInt(this.parameters); //get the task number (index) to delete
-            //prints output to show user that the task has been added
-            ui.showDeleted(tasks.getList().get(taskToDelete - 1), tasks.getSize());
-            tasks.deleteTask(taskToDelete - 1); //deletes a task
-
+            try{
+                int taskToDelete = Integer.parseInt(this.parameters); //get the task number (index) to delete
+                //prints output to show user that the task has been added
+                ui.showDeleted(tasks.getList().get(taskToDelete - 1), tasks.getSize());
+                tasks.deleteTask(taskToDelete - 1); //deletes a task
+            }
+            catch (IndexOutOfBoundsException e) {
+                throw new DukeException("OOPS!!! The task to delete is not found in the list. Please check your index again.");
+            }
         //this part writes file
         try{
             storage.store(tasks); //store fileContent
