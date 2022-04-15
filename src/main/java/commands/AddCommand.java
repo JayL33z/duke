@@ -83,7 +83,7 @@ public class AddCommand extends Command{
                     assert tasks.getSize() != 0 : "The tasklist should not be empty since a task is just added";
                     ui.showAdded(tasks.getList().get(tasks.getSize() - 1), tasks.getSize()); //prints output to show user that the task has been added
                 } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                    throw new DukeException("\t OOPS! Please input in the format:  fixed [description] /for [duration]");
+                    throw new DukeException("OOPS! Please input in the format:  fixed [description] /for [duration]");
                 }
                 break;
 

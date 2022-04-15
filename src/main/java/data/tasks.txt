@@ -1,4 +1,2 @@
-T | 0 | call publisher
-D | 1 | buy book | 2021-12-10
-E | 0 | visit author conference | 2022-08-10T20:45
-F | 0 | library meeting | 2 hours
+T | 0 | buy book
+E | 1 | book conference | 2022-03-01T04:30

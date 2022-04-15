@@ -41,6 +41,9 @@ public class Storage {
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> list = new ArrayList<Task>();
         try{
+            File directory = new File("data");
+            boolean dirCreated = directory.mkdir();
+
             File f = new File(filePath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             //Assume that the format and syntax of task.txt is correct
@@ -90,7 +93,7 @@ public class Storage {
             }
         } //end of try clause
         catch (FileNotFoundException e){
-            throw new DukeException("\t File data/tasks.txt was not successfully loaded.\n");
+            throw new DukeException("File data/tasks.txt was not successfully loaded.");
         }
         return list;
     } //end of load method
@@ -137,7 +140,7 @@ public class Storage {
             fw.close();
 
         }  catch (IOException e){
-            throw new DukeException("\t Updated list was not successfully stored.\n");
+            throw new DukeException("Updated list was not successfully stored.");
         }
 
     } //end of store method

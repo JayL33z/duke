@@ -7,6 +7,7 @@ import parser.*;
 import exception.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class ViewCommand extends Command{
     //instantiate a command object without parameters from Parser.parse() e.g. bye, list
@@ -26,11 +27,17 @@ public class ViewCommand extends Command{
      * @param Storage object
      */
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage){
+    public void execute (TaskList tasks, Ui ui, Storage storage) throws DukeException{
             LocalDate date;
-            this.parameters = this.parameters.trim(); //remove leading and trailing spaces
-            date = LocalDate.parse(this.parameters);
-            ui.showView(tasks, date);  //prints output to show user the tasks for a specific date
+
+            try{
+                this.parameters = this.parameters.trim(); //remove leading and trailing spaces
+                date = LocalDate.parse(this.parameters);
+                ui.showView(tasks, date);  //prints output to show user the tasks for a specific date
+            } catch (DateTimeParseException e){
+                throw new DukeException("OOPS! Please input in the format:  view YYYY-MM-DD");
+            }
+
     } //end of execute method
 
 }

@@ -35,7 +35,7 @@ public class Parser {
            try {
                command = new ViewCommand(CommandType.VIEW, in[1]);
            }catch (ArrayIndexOutOfBoundsException e){
-               throw new DukeException("OOPS!!! You need to provide an date to see schedule.");
+               throw new DukeException("OOPS! Please input in the format:  view [YYYY-MM-DD]");
            }
        }
 
@@ -44,7 +44,7 @@ public class Parser {
                 command = new MarkCommand(CommandType.MARK, in[1]);
                 
             }catch (ArrayIndexOutOfBoundsException e){
-                throw new DukeException("OOPS!!! You need to provide an index to mark as completed.");
+                throw new DukeException("OOPS! Please input in the format:  mark [index]");
             }
 
         }
@@ -53,26 +53,46 @@ public class Parser {
            try {
                command = new UnmarkCommand(CommandType.UNMARK, in[1]);
            }catch (ArrayIndexOutOfBoundsException e){
-               throw new DukeException("OOPS!!! You need to provide an index to unmark.");
+               throw new DukeException("OOPS! Please input in the format:  unmark [index]");
            }
         }
 
         else if(option.equalsIgnoreCase("todo")){ //handle todo via AddCommand.java
-            command = new AddCommand(CommandType.TODO, in[1]);
+           try {
+               command = new AddCommand(CommandType.TODO, in[1]);
+           } catch (ArrayIndexOutOfBoundsException e){
+               throw new DukeException("OOPS! Please input in the format:  todo [description]");
+           }
         }
 
         else if(option.equalsIgnoreCase("deadline")){ //handle deadline via AddCommand.java
-            command = new AddCommand(CommandType.DEADLINE, in[1]);
+            try {
+                command = new AddCommand(CommandType.DEADLINE, in[1]);
+            } catch (ArrayIndexOutOfBoundsException e){
+                throw new DukeException("OOPS! Please input in the format:  deadline [description] /by [YYYY-MM-DD]");
+            }
         }
 
         else if(option.equalsIgnoreCase("event")){ //handle Event via AddCommand.java
-            command = new AddCommand(CommandType.EVENT, in[1]);
+           try {
+               command = new AddCommand(CommandType.EVENT, in[1]);
+           } catch (ArrayIndexOutOfBoundsException e){
+               throw new DukeException("OOPS! Please input in the format:  event [description] /at [YYYY-MM-DDTHH:MM]");
+           }
         }
        else if(option.equalsIgnoreCase("fixed")){ //handle Event via AddCommand.java
+           try {
            command = new AddCommand(CommandType.FIXED, in[1]);
+           } catch (ArrayIndexOutOfBoundsException e){
+               throw new DukeException("OOPS! Please input in the format:  fixed [description] /for [duration]");
+           }
        }
        else if(option.equalsIgnoreCase("find")){ //handle Event via AddCommand.java
+           try {
            command = new FindCommand(CommandType.FIND, in[1]);
+           } catch (ArrayIndexOutOfBoundsException e){
+               throw new DukeException("OOPS! Please input in the format:  find [keyword]");
+           }
        }
         else if(option.equalsIgnoreCase("delete")){ //handle delete
            try {
